@@ -1,0 +1,8 @@
+dn: cn=config
+changetype: modify
+add: olcAuthzRegexp
+olcAuthzRegexp: uid=([^,]+),<%= scope.lookupvar('ldap::ldap_realm') %>,cn=gssapi,cn=auth
+  uid=$1,<%= scope.lookupvar('ldap::users_tree') %>,<%= scope.lookupvar('ldap::base_dn') %>
+
+add: olcSaslRealm
+olcSaslRealm: <%= scope.lookupvar('ldap::kerberos_realm') %>
