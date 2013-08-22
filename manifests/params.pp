@@ -20,5 +20,5 @@ class ldap::params {
   $ldap_cnRealm   = "cn=${ldap_realm}"
   $use_backup     = false
   $mode           = 'slave'
-  $master         = $::hostname,
+  $master         = $::fqdn
 }

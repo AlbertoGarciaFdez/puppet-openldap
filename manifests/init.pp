@@ -12,7 +12,7 @@ class ldap (
   $ldap_cnRealm   = params_lookup( 'ldap_cnRealm' ),
   $use_backup     = params_lookup( 'use_backup' ),
   $mode           = params_lookup( 'mode' ),
-  $master         = params_lookup( 'master' ),
+  $master         = params_lookup( 'master' )
 
 ) inherits ldap::params {
 

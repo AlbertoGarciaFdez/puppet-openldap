@@ -1,4 +1,4 @@
-<% if scope.lookupvar('ldap::params::mode')=='master' %>
+<% if scope.lookupvar('ldap::mode')=='master' %>
 #Load the syncprov and accesslog modules.
 dn: cn=module{0},cn=config
 changetype: modify
@@ -24,7 +24,7 @@ objectClass: olcHdbConfig
 olcDatabase: {2}hdb
 olcDbDirectory: /var/lib/ldap/accesslog
 olcSuffix: cn=accesslog
-olcRootDN: <%= scope.lookupvar('ldap::params::root_dn') %>
+olcRootDN: <%= scope.lookupvar('ldap::root_dn') %>
 olcDbIndex: default eq
 olcDbIndex: entryCSN,objectClass,reqEnd,reqResult,reqStart
 
@@ -57,7 +57,7 @@ olcAccessLogSuccess: TRUE
 olcAccessLogPurge: 07+00:00 01+00:00
 <% end %>
 
-<% if scope.lookupvar('ldap::params::mode')=='slave' %>
+<% if scope.lookupvar('ldap::mode')=='slave' %>
 #Load the syncprov module.
 dn: cn=module{0},cn=config
 changetype: modify
@@ -71,10 +71,10 @@ add: olcDbIndex
 olcDbIndex: entryUUID eq
 -
 add: olcSyncRepl
-olcSyncRepl: rid=0 provider=ldap://<%= scope.lookupvar('ldap::params::master') %> bindmethod=simple binddn="<%= scope.lookupvar('ldap::params::root_dn') %>" 
- credentials=<%= scope.lookupvar('ldap::params::root_pw') %> searchbase="<%= scope.lookupvar('ldap::params::base_dn') %>" 
+olcSyncRepl: rid=0 provider=ldap://<%= scope.lookupvar('ldap::master') %> bindmethod=simple binddn="<%= scope.lookupvar('ldap::root_dn') %>" 
+ credentials=<%= scope.lookupvar('ldap::root_pw') %> searchbase="<%= scope.lookupvar('ldap::base_dn') %>" 
  logbase="cn=accesslog" logfilter="(&(objectClass=auditWriteObject)(reqResult=0))" schemachecking=on type=refreshAndPersist retry="60 +" syncdata=accesslog
 -
 add: olcUpdateRef
-olcUpdateRef: ldap://<%= scope.lookupvar('ldap::params::master') %>
+olcUpdateRef: ldap://<%= scope.lookupvar('ldap::master') %>
 <% end %>
