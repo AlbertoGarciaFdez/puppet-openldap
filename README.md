@@ -31,7 +31,7 @@ Sample usage:
 Full Usage:
 ===========
 
-This class shows how to create a complete setup for ldap master and slaves, with this class and others on my github.
+This class shows how to create a complete setup for ldap master and slaves, with this module and others on my github.
 
 	class ldap-master {
 
